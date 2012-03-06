@@ -1,0 +1,10 @@
+#-*- require-final-newline: nil -*-
+#contributor: gary <ge.iams@gmail.com>
+#name : context (Context)
+# --
+
+context ${1:context} do
+
+  $0
+
+end
