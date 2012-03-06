@@ -1,0 +1,10 @@
+.emacs.d/server/*
+.emacs.d/elisp/*
+.emacs.d/snippets/*
+.emacs.d/tramp
+.emacs.d/anything-c-adaptive-history
+.emacs.d/auto-save-list
+.emacs.d/ac-comphist.dat
+.emacs.d/conf/60_gist.el
+.emacs.d/conf/60_twittering-mode.el
+.vim/bundle/*
