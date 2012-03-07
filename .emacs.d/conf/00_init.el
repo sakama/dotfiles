@@ -23,6 +23,9 @@
 ;; スタートアップメッセージを非表示
 (setq inhibit-startup-screen t)
 
+;; scratchの初期メッセージ消去
+(setq initial-scratch-message "")
+
 ;; メニューバーにファイルパスを表示
 (setq frame-title-format
       (format "%%f - Emacs@%s" (system-name)))
@@ -62,6 +65,10 @@
                              'text-mode
                              )))
 (add-hook 'mmm-mode-hook 'jaspace-mmm-mode-hook) ;; mmm-mode で有効に
+
+;; 行末の空白を強調表示
+(setq-default show-trailing-whitespace t)
+(set-face-background 'trailing-whitespace "#b14770")
 
 ;; MacのCommandキーをMetaキーとして使う
 (setq ns-command-modifier (quote meta))
