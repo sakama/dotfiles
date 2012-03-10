@@ -5,7 +5,7 @@ defkanji utf-8
 encoding utf-8 utf-8
 defencoding utf-8
 
-escape ^Tt
+escape ^Bt
 bind -c REGION 2 split
 bind -c REGION 1 only
 bind -c REGION 0 remove
