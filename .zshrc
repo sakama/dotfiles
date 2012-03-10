@@ -69,5 +69,9 @@ function rm-svn(){
 function rfc(){
     command wget -q -O- http://www.ietf.org/rfc/rfc$2.txt | lv
 }
+
 #環境毎の設定を読み込み
-[ -f ~/.zshrc.env ] && source ~/.zshrc.env
+#~/.zshenvというファイルに記述する
+
+#zsh-completionsの読み込み
+fpath=(~/dotfiles/zsh/zsh-completions $fpath)
