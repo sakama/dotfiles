@@ -15,9 +15,10 @@
   ;; If there is more than one, they won't work right.
  '(rst-level-1-face ((t (:background "grey85"))) t))
 
-(mac-set-input-method-parameter "com.justsystems.inputmethod.atok24.Japanese" `title "漢")
-(mac-set-input-method-parameter "com.justsystems.inputmethod.atok24.Japanese" `cursor-type 'box)
-(mac-set-input-method-parameter "com.justsystems.inputmethod.atok24.Japanese" `cursor-color "magenta")
-
-;;モードラインにOS XのIME情報を
-(setq default-input-method "MacOSX")
+;; Macのみの設定 モードラインにOS XのIME情報を
+(when (eq system-type 'darwin)
+  (mac-set-input-method-parameter "com.justsystems.inputmethod.atok24.Japanese" `title "漢")
+  (mac-set-input-method-parameter "com.justsystems.inputmethod.atok24.Japanese" `cursor-type 'box)
+  (mac-set-input-method-parameter "com.justsystems.inputmethod.atok24.Japanese" `cursor-color "magenta")
+  (setq default-input-method "MacOSX")
+)
