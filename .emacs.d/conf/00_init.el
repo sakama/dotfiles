@@ -1,14 +1,19 @@
 ;;================================
 
-;; スタートアップメッセージを非表示
-(setq inhibit-startup-screen t)
+;;オートセーブOFF
+(setq auto-save-default nil) ;デフォルトはt
 
-;; バックアップファイルを残さない
-(setq make-backup-files nil)
+;; バックアップOFF
+;;(setq make-backup-files nil) ;デフォルトはt
 
-;;オートセーブ
-;;(require 'auto-save-buffers)
-;;(run-with-idle-timer 5.0 t 'auto-save-buffers)
+;; バックアップファイル、オートセーブファイルの作成場所を変更 
+(add-to-list 'backup-directory-alist
+             (cons "." "~/.emacs.d/backups/"))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
+;; #!なファイルの保存時に実行属性を付与する
+(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
 ;; Lisp nesting exceeds 'max-lisp-eval-depth'のエラー対策
 (setq max-lisp-eval-depth 5000)
@@ -24,8 +29,16 @@
 (setq inhibit-startup-screen t)
 
 ;; scratchの初期メッセージ消去
-(setq initial-scratch-message "")
+;;(setq initial-scratch-message "")
 
+;; モードラインにファイルサイズを表示
+(size-indication-mode t)
+
+;; モードラインに時計を表示
+(setq display-time-day-and-date t) ; 曜日・月・日を表示
+(setq display-time-24hr-format t) ; 24時間表示
+(display-time-mode t)
+ 
 ;; メニューバーにファイルパスを表示
 (setq frame-title-format
       (format "%%f - Emacs@%s" (system-name)))
@@ -66,15 +79,6 @@
                              )))
 (add-hook 'mmm-mode-hook 'jaspace-mmm-mode-hook) ;; mmm-mode で有効に
 
-;; 行末の空白を強調表示
-(setq-default show-trailing-whitespace t)
-(set-face-background 'trailing-whitespace "#b14770")
-
-;; MacのCommandキーをMetaキーとして使う
-(setq ns-command-modifier (quote meta))
-(setq ns-alternate-modifier (quote super))
-;; 円マークの代わりにバックスラッシュを入力する
-(define-key global-map [?¥] [?\\])
 ;; デフォルトのタブサイズをスペース4つに
 (setq-default tab-width 4 indent-tabs-mode nil)
 
@@ -85,6 +89,18 @@
 ( setq c-basic-offset 4 )
 ))
 
+;; 行末の空白を強調表示
+(setq-default show-trailing-whitespace t)
+(set-face-background 'trailing-whitespace "#b14770")
+
+;; MacのCommandキーをMetaキーとして使う
+(when (eq system-type 'darwin)
+  (setq ns-command-modifier (quote meta))
+  (setq ns-alternate-modifier (quote super))
+)
+
+;; 円マークの代わりにバックスラッシュを入力する
+(define-key global-map [?¥] [?\\])
 
 ;; color-themeの設定
 (when (require 'color-theme nil t)
@@ -133,6 +149,7 @@
 (set-buffer-file-coding-system 'utf-8)
 (setq default-buffer-file-coding-system 'utf-8)
 
+;; 起動時のフレームサイズ
 (setq initial-frame-alist
   (append (list
     '(width . 170)
@@ -141,8 +158,4 @@
     '(left . 0)
   )
   initial-frame-alist))
-(setq default-frame-alist initial-frame-alist) ; 起動時のフレームサイズ
-
-;================================
-;; #!なファイルの保存時に実行属性を付与する
-(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+(setq default-frame-alist initial-frame-alist)

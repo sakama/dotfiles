@@ -1,5 +1,3 @@
-.emacs.d/server/*
-.emacs.d/elisp/*
 .emacs.d/tramp
 .emacs.d/anything-c-adaptive-history
 .emacs.d/auto-save-list
