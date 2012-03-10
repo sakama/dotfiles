@@ -75,3 +75,7 @@ function rfc(){
 
 #zsh-completionsの読み込み
 fpath=(~/dotfiles/zsh/zsh-completions $fpath)
+#zawの読み込み
+source ~/dotfiles/zsh/zaw/zaw.zsh
+zstyle ':filter-select' case-insensitive yes # 絞り込みをcase-insensitiveに
+bindkey '^@' zaw-cdr # zaw-cdrをbindkey
