@@ -35,3 +35,41 @@
 ;; anythingをC-;で起動
 (global-set-key [?\C-\;] 'anything)
 
+
+;;================================
+;; catgs.elの設定
+(require 'ctags nil t)
+(setq tags-revert-without-query t)
+;; ctagsを呼び出すコマンドライン。パスが通っていればフルパスでなくてもよい
+;; etags互換タグを利用する場合はコメントを外す
+;; (setq ctags-command "ctags -e -R ")
+;; anything-exuberant-ctags.elを利用しない場合はコメントアウトする
+(setq ctags-command "ctags -R --fields=\"+afikKlmnsSzt\" ")
+(global-set-key (kbd "<f5>") 'ctags-create-or-update-tags-table)
+
+;; gtags-modeのキーバインドを有効化する
+(setq gtags-suggested-key-mapping t)
+;;(require 'gtags nil t)
+;; AnythingからTAGSを利用しやすくするコマンド作成
+(when (and (require 'anything-exuberant-ctags nil t)
+           ;;(require 'anything-gtags nil t)
+           )
+;; anything-for-tags用のソースを定義
+(setq anything-for-tags
+      (list anything-c-source-imenu
+           ;; anything-c-source-gtags-select
+            ;; etagsを利用する場合はコメントを外す
+            ;; anything-c-source-etags-select
+            anything-c-source-exuberant-ctags-select
+            ))
+
+;; anything-for-tagsコマンドを作成
+(defun anything-for-tags ()
+  "Preconfigured 'anything' for anything-for-tags."
+  (interactive)
+  (anything anything-for-tags
+            (thing-at-point 'symbol)
+            nil nil nil "*anything for tags*"))
+
+;; M-tにanything-for-tagsを割り当て
+(define-key global-map (kbd "M-t") 'anything-for-tags)) 

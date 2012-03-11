@@ -32,6 +32,51 @@
 (global-set-key "\M-n" 'flymake-goto-next-error)
 (global-set-key "\C-cd" 'flymake-popup-err-message)
 
+;; Ruby用Flymakeの設定
+(set-face-background 'flymake-errline "red4")
+(set-face-background 'flymake-warnline "dark slate blue")
+;; Invoke ruby with '-c' to get syntax checking
+(defun flymake-ruby-init ()
+  (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                     'flymake-create-temp-inplace))
+         (local-file (file-relative-name
+                      temp-file
+                      (file-name-directory buffer-file-name))))
+    (list "ruby" (list "-c" local-file))))
+(push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
+(push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
+(push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3) flymake-err-line-patterns)
+
+(add-hook
+ 'ruby-mode-hook
+ '(lambda ()
+;; Don't want flymake mode for ruby regions in rhtml files
+(if (not (null buffer-file-name)) (flymake-mode))))
+
+;; HTML用Flymakeの設定
+(defun flymake-html-init ()
+  (list "tidy" (list (flymake-init-create-temp-buffer-copy
+                      'flymake-create-temp-inplace))))
+
+
+;; JS用Flymakeの設定
+;; Macの場合
+;; wget http://javascriptlint.com/download/jsl-0.3.0-mac.tar.gz
+;; tar xvf jsl-0.0.0-mac.tar.gz
+;; sudo cp ./jsl-0.3.0-mac/jsl /usr/local/bin/jsl
+(when (eq system-type 'darwin)
+  (defun flymake-jsl-init()
+    (list "jsl" (list "-process" (flymake-init-create-temp-buffer-copy
+                                  'flymake-create-temp-inplace))))
+)
+
+;; XML用Flymakeの設定
+(defun flymake-xml-init ()
+  (list "xmllint" (list "--valid"
+                        (flymake-init-create-temp-buffer-copy
+                         'flymake-create-temp-inplace))))
+
+
 ;; Objective-C 用設定
 (defvar xcode:gccver "4.2.1")
 (defvar xcode:sdkver "3.1.2")

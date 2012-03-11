@@ -1,27 +1,19 @@
 ;;================================
-;; flymake for aruby
-(require 'flymake)
-;; I don't like the default colors :)
-(set-face-background 'flymake-errline "red4")
-(set-face-background 'flymake-warnline "dark slate blue")
-;; Invoke ruby with '-c' to get syntax checking
-(defun flymake-ruby-init ()
-(let* ((temp-file (flymake-init-create-temp-buffer-copy
-'flymake-create-temp-inplace))
-(local-file (file-relative-name
-temp-file
-(file-name-directory buffer-file-name))))
-(list "ruby" (list "-c" local-file))))
-(push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
-(push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
-(push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3) flymake-err-line-patterns)
+;; ruby-electric
+;; M-x install-elisp RET https://raw.github.com/ruby/ruby/trunk/misc/ruby-electric.el
+;; ruby-block
+;; M-x auto-install-from-emacs-wiki RET ruby-block.el RET 
+(require 'ruby-electric nil t)
+;; endに対応する行のハイライト
+(when (require 'ruby-block nil t)
+  (setq ruby-block-highlight-toggle t))
 
-
-(add-hook
-'ruby-mode-hook
-'(lambda ()
-;; Don't want flymake mode for ruby regions in rhtml files
-(if (not (null buffer-file-name)) (flymake-mode))))
+;; ruby-mode-hoook用の関数を定義
+(defun ruby-mode-hooks ()
+  (ruby-electric-mode t)
+  (ruby-block-mode t))
+;; ruby-mode-hookに追加
+(add-hook 'ruby-mode-hook 'ruby-mode-hooks)
 
 ;;================================
 ;; autotest
