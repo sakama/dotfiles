@@ -18,6 +18,7 @@ Bundle 'tpope/vim-rails'
 Bundle 'tyru/open-browser.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'motemen/git-vim'
+Bundle 'ujihisa/quickrun'
 
 "www.vim.orgにホストされているプラグイン
 
