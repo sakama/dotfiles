@@ -69,6 +69,10 @@
 
 ;; 円マークの代わりにバックスラッシュを入力する
 (define-key global-map [?¥] [?\\])
+;; C-hをバックスペースに割り当て
+(keyboard-translate ?\C-h ?\C-?)
+;; 折り返しトグルコマンド
+(define-key global-map (kbd "C-c l") 'toggle-truncate-lines)
 
 ;; color-themeの設定
 (when (require 'color-theme nil t)
