@@ -23,7 +23,7 @@ set backspace=indent,eol,start
 " 表示関係
 "----------------------------------------------------
 " colorscheme
-colorscheme molokai
+colorscheme zenburn
 " タイトルをウインドウ枠に表示する
 set title
 " ルーラーを表示
