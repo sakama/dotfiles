@@ -69,10 +69,6 @@
 
 ;; 円マークの代わりにバックスラッシュを入力する
 (define-key global-map [?¥] [?\\])
-;; C-hをバックスペースに割り当て
-(keyboard-translate ?\C-h ?\C-?)
-;; 折り返しトグルコマンド
-(define-key global-map (kbd "C-c l") 'toggle-truncate-lines)
 
 ;; color-themeの設定
 (when (require 'color-theme nil t)
@@ -98,14 +94,14 @@
 (global-hl-line-mode t)
 
 ;; フォントの設定
-;;(set-default-font "Inconsolata-14:spacing=0")
-;; (set-face-font 'variable-pitch "Inconsolata-14:spacing=0")
+;;(set-default-font "Inconsolata-16:spacing=0")
+;; (set-face-font 'variable-pitch "Inconsolata-16:spacing=0")
 ;;(set-fontset-font (frame-parameter nil 'font)
 ;;                  'japanese-jisx0208
-;;                  '("Takaoゴシック-14:spacing=0" . "unicode-bmp")
+;;                  '("Takaoゴシック-16:spacing=0" . "unicode-bmp")
 ;;)
-(set-default-font "ricky-14:spacing=0")
-(set-face-font 'variable-pitch "ricky-14:spacing=0")
+(set-frame-font "ricty-18")
+;;(set-face-font 'variable-pitch "ricty-13:spacing=0")
  
 ;;================================
 ;; Shellの設定
