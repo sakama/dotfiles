@@ -5,3 +5,4 @@
 .emacs.d/conf/60_gist.el
 .emacs.d/conf/60_twittering-mode.el
 .vim/bundle/*
+.DS_Store
