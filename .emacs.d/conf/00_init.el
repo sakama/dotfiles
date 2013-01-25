@@ -132,8 +132,8 @@
 ;; 起動時のフレームサイズ
 (setq initial-frame-alist
   (append (list
-    '(width . 170)
-    '(height . 50)
+    '(width . 80)
+    '(height . 40)
     '(top . 0)
     '(left . 0)
   )
@@ -185,3 +185,7 @@
 ;;================================
 ;; clパッケージを読み込む
 (require 'cl)
+
+;;================================
+;;M-x comment-region
+ (global-set-key "\C-c\C-c" 'comment-region)
